@@ -1,17 +1,13 @@
+#!/usr/bin/python3
 import argparse
-from sys import stdout
-from unittest import result
-from numpy import array
-from termcolor import colored, cprint
-from argparse import RawTextHelpFormatter
+from termcolor import cprint
 import csv
 from os.path import exists
 import subprocess
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Universal Brute Forcer, brute forcer of last resort",
-        formatter_class=RawTextHelpFormatter)
+        description="Universal Brute Forcer, brute forcer of last resort")
     
     parser.add_argument(
         "-u",
@@ -90,13 +86,21 @@ def main():
         command_template=command_template)
 
     for command in commands:
+        
         result = subprocess.run(command.split(" "), stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output = result.stdout.decode().strip() + "|" + result.stderr.decode().strip()
+        
+        if not args.success_string and not args.failure_string:
+            cprint("[c] {}".format(command),"blue")
+            cprint("[#] {}".format(output),"gray")
+
         if args.success_string:
             if args.success_string in output:
+                cprint("[c] {}".format(command),"blue")
                 cprint("[✅] {}".format(output),"green")
         if args.failure_string and not args.quiet:
             if args.failure_string in output:
+                cprint("[c] {}".format(command),"blue")
                 cprint("[❌] {}".format(output),"red")
 
 
